@@ -1,10 +1,14 @@
 package org.arquitecturas.grupo17.microservicemonopatin.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ScooterDTO {
-    int x;
-    int y;
-    int state;
+    Integer x;
+    Integer y;
+    Integer state;
 }

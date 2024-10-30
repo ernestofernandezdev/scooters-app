@@ -4,10 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Scooter {
     public static final int AVAILABLE = 0;
     public static final int IN_USE = 1;
@@ -15,10 +19,14 @@ public class Scooter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    int state;
-    int x;
-    int y;
+    Long id;
+    Integer state;
+    Integer x;
+    Integer y;
 
-
+    public Scooter(Integer state, Integer x, Integer y) {
+        this.state = state;
+        this.x = x;
+        this.y = y;
+    }
 }
