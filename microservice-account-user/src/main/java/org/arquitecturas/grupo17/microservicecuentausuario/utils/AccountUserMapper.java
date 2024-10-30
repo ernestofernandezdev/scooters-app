@@ -2,12 +2,12 @@ package org.arquitecturas.grupo17.microservicecuentausuario.utils;
 
 import lombok.NoArgsConstructor;
 import org.arquitecturas.grupo17.microservicecuentausuario.dto.AccountUserDTO;
-import org.arquitecturas.grupo17.microservicecuentausuario.model.AccountUser;
+import org.arquitecturas.grupo17.microservicecuentausuario.model.UserAccount;
 
 @NoArgsConstructor
 public class AccountUserMapper {
 
-    public AccountUserDTO toDTO(AccountUser accountUser){
+    public AccountUserDTO toDTO(UserAccount accountUser){
         if(accountUser == null){
             return null;
         }
@@ -23,11 +23,11 @@ public class AccountUserMapper {
         );
     }
 
-    public AccountUser toEntity(AccountUserDTO accountUserDTO){
+    public UserAccount toEntity(AccountUserDTO accountUserDTO){
         if(accountUserDTO == null){
             return null;
         }
-        return new AccountUser(
+        return new UserAccount(
                 accountUserDTO.getName(),
                 accountUserDTO.getLastName(),
                 accountUserDTO.getUserName(),
@@ -39,7 +39,7 @@ public class AccountUserMapper {
         );
     }
 
-    public void updateEntityFromDTO(AccountUserDTO accountUserDTO, AccountUser accountUser) {
+    public void updateEntityFromDTO(AccountUserDTO accountUserDTO, UserAccount accountUser) {
         if (accountUserDTO.getName() != null) {
             accountUser.setName(accountUserDTO.getName());
         }

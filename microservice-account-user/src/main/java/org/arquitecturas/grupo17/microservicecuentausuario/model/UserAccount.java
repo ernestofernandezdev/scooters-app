@@ -1,18 +1,17 @@
 package org.arquitecturas.grupo17.microservicecuentausuario.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountUser {
+public class UserAccount {
     public static final int NORMAL_USER = 0;
     public static final int ADMIN_USER = 1;
     public static final int MAINTENANCE_USER = 2;
@@ -28,8 +27,10 @@ public class AccountUser {
     private Integer x;
     private Integer y;
     private Integer role;
+    @ManyToMany(mappedBy = "userAccountList")
+    private List<PaymentAccount> paymentAccountList;
 
-    public AccountUser(String name, String lastName, String userName, String email, String phoneNumber, Integer x, Integer y, Integer role) {
+    public UserAccount(String name, String lastName, String userName, String email, String phoneNumber, Integer x, Integer y, Integer role) {
         this.name = name;
         this.lastName = lastName;
         this.userName = userName;

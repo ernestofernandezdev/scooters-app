@@ -1,7 +1,7 @@
 package org.arquitecturas.grupo17.microservicecuentausuario.service;
 
 import org.arquitecturas.grupo17.microservicecuentausuario.dto.AccountUserDTO;
-import org.arquitecturas.grupo17.microservicecuentausuario.model.AccountUser;
+import org.arquitecturas.grupo17.microservicecuentausuario.model.UserAccount;
 import org.arquitecturas.grupo17.microservicecuentausuario.repository.AccountUserRepository;
 import org.arquitecturas.grupo17.microservicecuentausuario.utils.AccountUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +21,24 @@ public class AccountUserServiceImpl implements AccountUserService{
     }
 
     @Override
-    public AccountUser create(AccountUserDTO accountUserDTO) {
-        AccountUser accountUser = this.accountUserMapper.toEntity(accountUserDTO);
+    public UserAccount create(AccountUserDTO accountUserDTO) {
+        UserAccount accountUser = this.accountUserMapper.toEntity(accountUserDTO);
         return accountUserRepository.save(accountUser);
     }
 
     @Override
-    public AccountUser findById(Long id) {
+    public UserAccount findById(Long id) {
         return accountUserRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public List<AccountUser> findAll() {
+    public List<UserAccount> findAll() {
         return accountUserRepository.findAll();
     }
 
     @Override
-    public AccountUser update(AccountUserDTO accountUserDTO, Long id) {
-        AccountUser accountUser = this.findById(id);
+    public UserAccount update(AccountUserDTO accountUserDTO, Long id) {
+        UserAccount accountUser = this.findById(id);
         if(accountUser == null){
             return null;
         }
