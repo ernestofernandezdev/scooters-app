@@ -19,10 +19,9 @@ public class ScooterService{
         this.scooterMapper = scooterMapper;
     }
 
-    public ScooterDTO create(ScooterDTO scooterDTO) {
+    public void create(ScooterDTO scooterDTO) {
         Scooter scooter = scooterMapper.toEntity(scooterDTO);
         scooterRepository.save(scooter);
-        return scooterDTO;
     }
 
     public ScooterDTO findById(Long id) {

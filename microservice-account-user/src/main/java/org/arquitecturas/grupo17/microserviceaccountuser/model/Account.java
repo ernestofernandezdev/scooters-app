@@ -16,14 +16,16 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaymentAccount;
-    private double avaibleMoney;
+    private Long idAccount;
+    private double availableMoney;
+    private boolean disabled;
     private Timestamp registrationDate;
     @ManyToMany
-    private List<User> userList;
+    private List<User> users;
 
-    public Account(double avaibleMoney, Timestamp registrationDate) {
-        this.avaibleMoney = avaibleMoney;
+    public Account(double availableMoney, Timestamp registrationDate) {
+        this.availableMoney = availableMoney;
         this.registrationDate = registrationDate;
+        this.disabled = false;
     }
 }

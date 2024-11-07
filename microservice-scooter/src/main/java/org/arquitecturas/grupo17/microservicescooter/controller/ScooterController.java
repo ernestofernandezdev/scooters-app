@@ -18,7 +18,7 @@ public class ScooterController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ScooterDTO>> findAllScooters() {
+    public ResponseEntity<List<ScooterDTO>> findAll() {
         return ResponseEntity.ok(this.scooterService.findAll());
     }
 
@@ -29,9 +29,9 @@ public class ScooterController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ScooterDTO> save(@RequestBody ScooterDTO scooterDTO) {
-        ScooterDTO scooterDto = scooterService.create(scooterDTO);
-        return ResponseEntity.ok(scooterDto);
+    public ResponseEntity<String> save(@RequestBody ScooterDTO scooterDTO) {
+        scooterService.create(scooterDTO);
+        return ResponseEntity.ok("Scooter created");
     }
 
     @PutMapping("/{id}")
@@ -41,7 +41,8 @@ public class ScooterController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         scooterService.delete(id);
+        return ResponseEntity.ok("Scooter deleted");
     }
 }

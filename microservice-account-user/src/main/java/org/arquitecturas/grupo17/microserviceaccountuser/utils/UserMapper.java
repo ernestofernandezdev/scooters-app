@@ -2,24 +2,25 @@ package org.arquitecturas.grupo17.microserviceaccountuser.utils;
 
 import lombok.NoArgsConstructor;
 import org.arquitecturas.grupo17.microserviceaccountuser.dto.UserDTO;
+import org.arquitecturas.grupo17.microserviceaccountuser.model.Role;
 import org.arquitecturas.grupo17.microserviceaccountuser.model.User;
 
 @NoArgsConstructor
-public class AccountUserMapper {
+public class UserMapper {
 
     public UserDTO toDTO(User accountUser){
         if(accountUser == null){
             return null;
         }
         return new UserDTO(
-                accountUser.getName(),
+                accountUser.getFirstname(),
                 accountUser.getLastName(),
                 accountUser.getUserName(),
                 accountUser.getEmail(),
                 accountUser.getPhoneNumber(),
                 accountUser.getX(),
                 accountUser.getY(),
-                accountUser.getRole()
+                accountUser.getRole().getName()
         );
     }
 
@@ -28,7 +29,7 @@ public class AccountUserMapper {
             return null;
         }
         return new User(
-                userDTO.getName(),
+                userDTO.getFirstname(),
                 userDTO.getLastName(),
                 userDTO.getUserName(),
                 userDTO.getEmail(),
@@ -40,8 +41,8 @@ public class AccountUserMapper {
     }
 
     public void updateEntityFromDTO(UserDTO userDTO, User accountUser) {
-        if (userDTO.getName() != null) {
-            accountUser.setName(userDTO.getName());
+        if (userDTO.getFirstname() != null) {
+            accountUser.setFirstname(userDTO.getFirstname());
         }
         if (userDTO.getLastName() != null) {
             accountUser.setLastName(userDTO.getLastName());
@@ -62,7 +63,7 @@ public class AccountUserMapper {
             accountUser.setY(userDTO.getY());
         }
         if (userDTO.getRole() != null) {
-            accountUser.setRole(userDTO.getRole());
+            accountUser.setRole(new Role(userDTO.getRole()));
         }
     }
 }

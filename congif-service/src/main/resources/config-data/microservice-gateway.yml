@@ -22,7 +22,7 @@ spring:
           - id: microservice-scooter
             uri: lb://microservice-scooter
             predicates:
-              - Path=/api/microservice-scooter/**
+              - Path=/api/scooter/**
           - id: microservice-stop
             uri: lb://microservice-stop
             predicates:
