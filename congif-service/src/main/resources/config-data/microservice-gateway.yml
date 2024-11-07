@@ -18,7 +18,7 @@ spring:
           - id: microservice-account-user
             uri: lb://microservice-account-user
             predicates:
-              - Path=/api/microservice-account-user/**
+              - Path=/api/account/**,/api/user/**
           - id: microservice-scooter
             uri: lb://microservice-scooter
             predicates:
@@ -26,11 +26,11 @@ spring:
           - id: microservice-stop
             uri: lb://microservice-stop
             predicates:
-              - Path=/api/microservice-stop/**
+              - Path=/api/stop/**
           - id: microservice-trip
             uri: lb://microservice-trip
             predicates:
-              - Path=/api/microservice-trip/**
+              - Path=/api/trip/**,/api/pause/**,/api/price/**
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG

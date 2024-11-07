@@ -19,10 +19,10 @@ public class Scooter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Integer state;
-    Integer x;
-    Integer y;
+    private Long id;
+    private Integer state;
+    private Integer x;
+    private Integer y;
 
     public Scooter(Integer state, Integer x, Integer y) {
         this.state = state;
