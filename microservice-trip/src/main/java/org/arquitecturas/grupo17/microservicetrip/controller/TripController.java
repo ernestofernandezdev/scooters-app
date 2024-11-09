@@ -1,5 +1,6 @@
 package org.arquitecturas.grupo17.microservicetrip.controller;
 
+import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.service.TripService;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +44,14 @@ public class TripController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         tripService.delete(id);
         return ResponseEntity.ok("Trip deleted");
+    }
+
+    @GetMapping("/distance-report")
+    public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
+        try {
+            return ResponseEntity.ok(this.tripService.getDistanceReport());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

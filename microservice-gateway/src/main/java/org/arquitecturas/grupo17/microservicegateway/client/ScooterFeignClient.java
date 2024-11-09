@@ -1,5 +1,6 @@
 package org.arquitecturas.grupo17.microservicegateway.client;
 
+import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ public interface ScooterFeignClient {
 
     @PostMapping("/api/scooter")
     ResponseEntity<String> createScooter(@RequestBody ScooterDTO scooterDTO);
-
 
 
 }

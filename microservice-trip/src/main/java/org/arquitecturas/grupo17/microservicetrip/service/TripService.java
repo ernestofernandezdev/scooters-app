@@ -1,5 +1,6 @@
 package org.arquitecturas.grupo17.microservicetrip.service;
 
+import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.model.Trip;
 import org.arquitecturas.grupo17.microservicetrip.repository.TripRepository;
@@ -42,6 +43,10 @@ public class TripService {
 
     public void delete(Long id) {
         tripRepository.deleteById(id);
+    }
+
+    public List<DistanceReportDTO> getDistanceReport() {
+        return this.tripRepository.getDistanceReport();
     }
 
 }

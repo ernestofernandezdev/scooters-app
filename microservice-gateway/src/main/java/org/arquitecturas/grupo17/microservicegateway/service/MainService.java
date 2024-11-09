@@ -1,6 +1,8 @@
 package org.arquitecturas.grupo17.microservicegateway.service;
 
 import org.arquitecturas.grupo17.microservicegateway.client.ScooterFeignClient;
+import org.arquitecturas.grupo17.microservicegateway.client.TripFeignClient;
+import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,11 @@ import java.util.List;
 @Service
 public class MainService {
     private ScooterFeignClient scooterClient;
+    private TripFeignClient tripClient;
 
-    public MainService(ScooterFeignClient scooterClient) {
+    public MainService(ScooterFeignClient scooterClient, TripFeignClient tripClient) {
         this.scooterClient = scooterClient;
+        this.tripClient = tripClient;
     }
 
     public void setScooterMaintenance(long scooterId) throws Exception {
@@ -29,6 +33,10 @@ public class MainService {
 
     public void addScooter(ScooterDTO scooterDTO) throws Exception {
         this.scooterClient.createScooter(scooterDTO);
+    }
+
+    public List<DistanceReportDTO> getDistanceReport() throws Exception {
+        return this.tripClient.getDistanceReport().getBody();
     }
 
 }

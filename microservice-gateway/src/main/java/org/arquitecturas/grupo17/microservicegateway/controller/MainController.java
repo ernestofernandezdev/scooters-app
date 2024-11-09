@@ -1,5 +1,6 @@
 package org.arquitecturas.grupo17.microservicegateway.controller;
 
+import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.arquitecturas.grupo17.microservicegateway.service.MainService;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,15 @@ public class MainController {
             return ResponseEntity.ok().body("Scooter added");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/distance-report")
+    public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
+        try {
+            return ResponseEntity.ok(this.mainService.getDistanceReport());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
