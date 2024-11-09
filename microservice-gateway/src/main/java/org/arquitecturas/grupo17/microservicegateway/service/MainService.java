@@ -172,5 +172,12 @@ public class MainService {
 
         }
     }
-    //public void setExtraFee(@PathVariable long priceId);
+    public void updatePenaltyPrice(long priceId, int newPenaltyPrice){
+        try {
+            this.tripFeignClient.updatePenaltyPrice(priceId, newPenaltyPrice);
+        } catch (Exception e) {
+            System.out.println("Error updating price: " + e.getMessage());
+
+        }
+    }
 }

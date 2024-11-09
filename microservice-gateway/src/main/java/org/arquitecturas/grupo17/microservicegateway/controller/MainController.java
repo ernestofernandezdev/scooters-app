@@ -187,4 +187,14 @@ public class MainController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/api/price/{id}")
+    public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice){
+        try {
+            this.mainService.updatePenaltyPrice(id, newPenaltyPrice);
+            return ResponseEntity.ok().body("");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

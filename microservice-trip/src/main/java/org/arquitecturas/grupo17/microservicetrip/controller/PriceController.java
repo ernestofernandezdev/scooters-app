@@ -25,4 +25,10 @@ public class PriceController {
         this.priceService.save(priceDto);
         return ResponseEntity.ok("Price saved successfully");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice) {
+        this.priceService.updatePenaltyPrice(id, newPenaltyPrice);
+        return ResponseEntity.ok("Price updated successfully");
+    }
 }

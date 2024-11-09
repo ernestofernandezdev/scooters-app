@@ -17,8 +17,6 @@ public interface TripFeignClient {
     @PostMapping("/api/price")
     ResponseEntity<String> createPrice(@RequestBody PriceDTO priceDTO);
 
-/*
-    @PutMapping("/api/trip/price/{priceId}")
-    ResponseEntity<String> setExtraFee(@PathVariable long priceId);
-*/
+    @PutMapping("/api/price/{id}")
+    ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice);
 }
