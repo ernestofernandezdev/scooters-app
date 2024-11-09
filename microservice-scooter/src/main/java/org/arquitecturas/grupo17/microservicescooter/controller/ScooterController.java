@@ -45,4 +45,24 @@ public class ScooterController {
         scooterService.delete(id);
         return ResponseEntity.ok("Scooter deleted");
     }
+
+    @PutMapping("/maintenance/{scooterId}")
+    public ResponseEntity<Boolean> maintenance(@PathVariable Long scooterId) {
+        try {
+            this.scooterService.setScooterMaintenance(scooterId);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(false);
+        }
+    }
+
+    @PutMapping("/end-maintenance/{scooterId}")
+    public ResponseEntity<Boolean> endMaintenance(@PathVariable Long scooterId) {
+        try {
+            this.scooterService.endScooterMaintenance(scooterId);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(false);
+        }
+    }
 }

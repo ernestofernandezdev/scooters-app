@@ -1,26 +1,49 @@
 package org.arquitecturas.grupo17.microservicegateway.controller;
 
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
-import org.arquitecturas.grupo17.microservicegateway.service.ExampleService;
+import org.arquitecturas.grupo17.microservicegateway.service.MainService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/scooter-app")
 public class MainController {
-    private ExampleService exampleService;
+    private MainService mainService;
 
-    public MainController(ExampleService exampleService) {
-        this.exampleService = exampleService;
+    public MainController(MainService exampleService) {
+        this.mainService = exampleService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<ScooterDTO>> getScooters() {
-        return ResponseEntity.ok(exampleService.getScooters());
+    @PutMapping("/maintenance/{scooterId}")
+    public ResponseEntity<String> setMaintenance(@PathVariable long scooterId) {
+        try {
+            this.mainService.setScooterMaintenance(scooterId);
+            return ResponseEntity.ok().body("Scooter maintenance");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/end-maintenance/{scooterId}")
+    public ResponseEntity<String> endMaintenance(@PathVariable long scooterId) {
+        try {
+            this.mainService.endScooterMaintenance(scooterId);
+            return ResponseEntity.ok().body("Scooter maintenance ended");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/scooter")
+    public ResponseEntity<String> addScooter(@RequestBody ScooterDTO scooterDTO) {
+        try {
+            this.mainService.addScooter(scooterDTO);
+            return ResponseEntity.ok().body("Scooter added");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

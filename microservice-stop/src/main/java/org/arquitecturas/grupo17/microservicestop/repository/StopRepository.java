@@ -1,9 +1,9 @@
 package org.arquitecturas.grupo17.microservicestop.repository;
 
 import org.arquitecturas.grupo17.microservicestop.model.Stop;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StopRepository extends JpaRepository<Stop, Long> {
+public interface StopRepository extends MongoRepository<Stop, Long> {
 }

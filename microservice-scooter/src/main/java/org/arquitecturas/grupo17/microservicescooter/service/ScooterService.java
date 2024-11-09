@@ -45,4 +45,24 @@ public class ScooterService{
         scooterRepository.deleteById(id);
     }
 
+    public void setScooterMaintenance(long scooterId) {
+        try {
+            Scooter scooter = scooterRepository.findById(scooterId).orElseThrow();
+            scooter.setState(Scooter.MAINTENANCE);
+            scooterRepository.save(scooter);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void endScooterMaintenance(long scooterId) {
+        try {
+            Scooter scooter = scooterRepository.findById(scooterId).orElseThrow();
+            scooter.setState(Scooter.AVAILABLE);
+            scooterRepository.save(scooter);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
