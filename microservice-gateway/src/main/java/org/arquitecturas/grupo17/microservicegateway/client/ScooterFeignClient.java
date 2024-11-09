@@ -5,13 +5,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @FeignClient(name="microservice-scooter")
 public interface ScooterFeignClient {
 
     @PutMapping("/api/scooter/maintenance/{scooterId}")
-        ResponseEntity<Boolean> setScooterMaintenance(@PathVariable Long scooterId);
+    ResponseEntity<Boolean> setScooterMaintenance(@PathVariable Long scooterId);
 
     @PutMapping("/api/scooter/end-maintenance/{scooterId}")
     ResponseEntity<Boolean> endScooterMaintenance(@PathVariable Long scooterId);
@@ -19,6 +17,7 @@ public interface ScooterFeignClient {
     @PostMapping("/api/scooter")
     ResponseEntity<String> createScooter(@RequestBody ScooterDTO scooterDTO);
 
-
+    @DeleteMapping("/api/scooter/{id}")
+    ResponseEntity<String> deleteScooter(@PathVariable Long id);
 
 }

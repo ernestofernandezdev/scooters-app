@@ -1,6 +1,7 @@
 package org.arquitecturas.grupo17.microservicetrip.controller;
 
 import org.arquitecturas.grupo17.microservicetrip.dto.PriceDTO;
+import org.arquitecturas.grupo17.microservicetrip.model.Price;
 import org.arquitecturas.grupo17.microservicetrip.service.PriceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,4 @@ public class PriceController {
         this.priceService.save(priceDto);
         return ResponseEntity.ok("Price saved successfully");
     }
-
 }
