@@ -19,7 +19,6 @@ public class StopMapper {
             return null;
         }
         return new Stop(
-                null,
                 stopDTO.getX(),
                 stopDTO.getY()
         );

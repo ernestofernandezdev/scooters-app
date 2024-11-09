@@ -22,7 +22,7 @@ public class PauseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PauseDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<PauseDTO> findById(@PathVariable("id") long id) {
         PauseDTO pauseDto = this.pauseService.findById(id);
         return ResponseEntity.ok(pauseDto);
     }
@@ -34,13 +34,13 @@ public class PauseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody PauseDTO pauseDto) {
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody PauseDTO pauseDto) {
         pauseService.update(pauseDto, id);
         return ResponseEntity.ok("Pause updated");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable long id) {
         pauseService.delete(id);
         return ResponseEntity.ok("Pause deleted");
     }

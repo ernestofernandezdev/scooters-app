@@ -24,7 +24,7 @@ public class ScooterService{
         scooterRepository.save(scooter);
     }
 
-    public ScooterDTO findById(Long id) {
+    public ScooterDTO findById(long id) {
         Scooter scooter = scooterRepository.findById(id).orElseThrow();
         return this.scooterMapper.toDTO(scooter);
     }
@@ -35,13 +35,13 @@ public class ScooterService{
                 .toList();
     }
 
-    public void update(ScooterDTO scooterDto, Long id) {
+    public void update(ScooterDTO scooterDto, long id) {
         Scooter scooter = this.scooterRepository.findById(id).orElseThrow();
         this.scooterMapper.updateEntityFromDTO(scooterDto, scooter);
         scooterRepository.save(scooter);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         scooterRepository.deleteById(id);
     }
 

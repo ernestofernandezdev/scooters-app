@@ -15,13 +15,13 @@ public interface AccountUserFeignClient {
     ResponseEntity<String> createUser(@RequestBody UserDTO userDTO);
 
     @DeleteMapping("/api/user/{id}")
-    ResponseEntity<String> deleteUser(@PathVariable Long id);
+    ResponseEntity<String> deleteUser(@PathVariable long id);
 
     @PutMapping("/api/user/{id}")
-    ResponseEntity<String> updateUser(@PathVariable Long id);
+    ResponseEntity<String> updateUser(@PathVariable long id);
 
-    @PutMapping("/api/user/{id}")
-    ResponseEntity<String> deactivateUser(@PathVariable Long id);
+    @PutMapping("/api/deactivated-user/{id}")
+    ResponseEntity<String> deactivateUser(@PathVariable long id);
 
     //Payment Account
 
@@ -29,11 +29,11 @@ public interface AccountUserFeignClient {
     ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO);
 
     @DeleteMapping("/api/user/account/{id}")
-    ResponseEntity<String> deleteAccount(@PathVariable Long id);
+    ResponseEntity<String> deleteAccount(@PathVariable long id);
 
     @PutMapping("/api/user/account/{id}")
-    ResponseEntity<String> updateAccount(@PathVariable Long id);
+    ResponseEntity<String> updateAccount(@PathVariable long id);
 
-    @PutMapping("/api/user/account/{id}")
-    ResponseEntity<String> deactivateAccount(@PathVariable Long id);
+    @PutMapping("/api/user/deactivated-account/{id}")
+    ResponseEntity<String> deactivateAccount(@PathVariable long id);
 }

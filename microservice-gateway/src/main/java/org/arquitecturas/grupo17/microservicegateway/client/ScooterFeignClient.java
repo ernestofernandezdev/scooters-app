@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 public interface ScooterFeignClient {
 
     @PutMapping("/api/scooter/maintenance/{scooterId}")
-    ResponseEntity<Boolean> setScooterMaintenance(@PathVariable Long scooterId);
+    ResponseEntity<Boolean> setScooterMaintenance(@PathVariable long scooterId);
 
     @PutMapping("/api/scooter/end-maintenance/{scooterId}")
-    ResponseEntity<Boolean> endScooterMaintenance(@PathVariable Long scooterId);
+    ResponseEntity<Boolean> endScooterMaintenance(@PathVariable long scooterId);
 
     @PostMapping("/api/scooter")
     ResponseEntity<String> createScooter(@RequestBody ScooterDTO scooterDTO);
 
     @DeleteMapping("/api/scooter/{id}")
-    ResponseEntity<String> deleteScooter(@PathVariable Long id);
+    ResponseEntity<String> deleteScooter(@PathVariable long id);
 
 }

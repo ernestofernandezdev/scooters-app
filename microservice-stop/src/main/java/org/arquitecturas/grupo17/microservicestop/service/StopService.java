@@ -23,7 +23,7 @@ public class StopService {
         this.stopRepository.save(stop);
     }
 
-    public StopDTO findById(Long id) {
+    public StopDTO findById(long id) {
         return this.stopMapper.toDTO(stopRepository.findById(id).orElseThrow());
     }
 
@@ -33,13 +33,13 @@ public class StopService {
                 .toList();
     }
 
-    public void update(StopDTO stopDTO, Long id) {
+    public void update(StopDTO stopDTO, long id) {
         Stop stop = this.stopRepository.findById(id).orElseThrow();
         this.stopMapper.updateEntityFromDTO(stopDTO, stop);
         this.stopRepository.save(stop);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         this.stopRepository.deleteById(id);
     }
 }

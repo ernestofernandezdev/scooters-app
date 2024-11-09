@@ -12,8 +12,8 @@ public interface StopFeignClient {
     ResponseEntity<String> createStop(@RequestBody StopDTO stopDTO);
 
     @DeleteMapping("/api/stop/{id}")
-    ResponseEntity<String> deleteStop(@PathVariable Long id);
+    ResponseEntity<String> deleteStop(@PathVariable long id);
 
     @PutMapping("/api/stop/{id}")
-    ResponseEntity<String> updateStop(@PathVariable Long id);
+    ResponseEntity<String> updateStop(@PathVariable long id);
 }

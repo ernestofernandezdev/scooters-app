@@ -23,7 +23,7 @@ public class UserService {
         userRepository.save(accountUser);
     }
 
-    public UserDTO findById(Long id) {
+    public UserDTO findById(long id) {
         return this.userMapper.toDTO(userRepository.findById(id).orElseThrow());
     }
 
@@ -33,13 +33,13 @@ public class UserService {
                 .toList();
     }
 
-    public void update(UserDTO userDTO, Long id) {
+    public void update(UserDTO userDTO, long id) {
         User user = this.userRepository.findById(id).orElseThrow();
         this.userMapper.updateEntityFromDTO(userDTO, user);
         this.userRepository.save(user);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         this.userRepository.deleteById(id);
     }
 }

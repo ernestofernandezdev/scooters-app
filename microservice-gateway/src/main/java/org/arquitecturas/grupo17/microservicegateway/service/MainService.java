@@ -6,11 +6,9 @@ import org.arquitecturas.grupo17.microservicegateway.client.StopFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.client.TripFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.dto.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Service
 public class MainService {
@@ -40,16 +38,15 @@ public class MainService {
         }
     }
 
-    public void addScooter(ScooterDTO scooterDTO) throws Exception {
+    public void addScooter(ScooterDTO scooterDTO) {
         this.scooterClient.createScooter(scooterDTO);
     }
 
-    public void deleteScooter(Long scooterId) {
+    public void deleteScooter(long scooterId) {
         try {
             this.scooterClient.deleteScooter(scooterId);
         } catch (Exception e) {
             System.out.println("Error deleting scooter: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -60,16 +57,16 @@ public class MainService {
             this.stopClient.createStop(stopDTO);
         } catch (Exception e) {
             System.out.println("Error adding stop: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deleteStop(Long scooterId) {
+    public void deleteStop(long scooterId) {
         try {
             this.scooterClient.deleteScooter(scooterId);
         } catch (Exception e) {
             System.out.println("Error deleting stop: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
@@ -80,34 +77,34 @@ public class MainService {
             this.accountUserFeignClient.createUser(userDTO);
         } catch (Exception e) {
             System.out.println("Error creating user: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(long userId) {
         try {
             this.accountUserFeignClient.deleteUser(userId);
         } catch (Exception e) {
             System.out.println("Error deleting user: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void updateUser(Long userId) {
+    public void updateUser(long userId) {
         try {
             this.accountUserFeignClient.updateUser(userId);
         } catch (Exception e) {
             System.out.println("Error updating user: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deactivateUser(Long userId) {
+    public void deactivateUser(long userId) {
         try {
             this.accountUserFeignClient.deactivateUser(userId);
         } catch (Exception e) {
             System.out.println("Error deactivating user: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
@@ -116,34 +113,34 @@ public class MainService {
             this.accountUserFeignClient.createAccount(accountDTO);
         } catch (Exception e) {
             System.out.println("Error creating account: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deleteAccount(@PathVariable Long accountId) {
+    public void deleteAccount(@PathVariable long accountId) {
         try {
             this.accountUserFeignClient.deleteAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error deleting account: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void updateAccount(@PathVariable Long accountId) {
+    public void updateAccount(@PathVariable long accountId) {
         try {
             this.accountUserFeignClient.updateAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error updating account: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deactivateAccount(@PathVariable Long accountId) {
+    public void deactivateAccount(@PathVariable long accountId) {
         try {
             this.accountUserFeignClient.deactivateAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error deactivating account: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
@@ -154,16 +151,16 @@ public class MainService {
             this.tripFeignClient.createTrip(tripDTO);
         } catch (Exception e) {
             System.out.println("Error creating trip: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
-    public void deleteTrip(Long tripId) {
+    public void deleteTrip(long tripId) {
         try {
             this.tripFeignClient.deleteTrip(tripId);
         } catch (Exception e) {
             System.out.println("Error deleting trip with ID: " + tripId);
-            e.printStackTrace();
+
         }
     }
 
@@ -172,8 +169,8 @@ public class MainService {
             this.tripFeignClient.createPrice(priceDTO);
         } catch (Exception e) {
             System.out.println("Error creating price: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
-    //public void setExtraFee(@PathVariable Long priceId);
+    //public void setExtraFee(@PathVariable long priceId);
 }

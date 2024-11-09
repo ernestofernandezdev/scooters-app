@@ -12,13 +12,13 @@ public interface TripFeignClient {
     ResponseEntity<String> createTrip(@RequestBody TripDTO tripDTO);
 
     @DeleteMapping("/api/trip/{id}")
-    ResponseEntity<String> deleteTrip(@PathVariable Long id);
+    ResponseEntity<String> deleteTrip(@PathVariable long id);
 
     @PostMapping("/api/price")
     ResponseEntity<String> createPrice(@RequestBody PriceDTO priceDTO);
 
 /*
     @PutMapping("/api/trip/price/{priceId}")
-    ResponseEntity<String> setExtraFee(@PathVariable Long priceId);
+    ResponseEntity<String> setExtraFee(@PathVariable long priceId);
 */
 }

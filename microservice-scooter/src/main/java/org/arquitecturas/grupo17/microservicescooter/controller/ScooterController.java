@@ -23,7 +23,7 @@ public class ScooterController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ScooterDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<ScooterDTO> findById(@PathVariable("id") long id) {
         ScooterDTO scooterDto = this.scooterService.findById(id);
         return ResponseEntity.ok(scooterDto);
     }
@@ -35,19 +35,19 @@ public class ScooterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody ScooterDTO scooter) {
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody ScooterDTO scooter) {
         scooterService.update(scooter, id);
         return ResponseEntity.ok("Scooter updated");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable long id) {
         scooterService.delete(id);
         return ResponseEntity.ok("Scooter deleted");
     }
 
     @PutMapping("/maintenance/{scooterId}")
-    public ResponseEntity<Boolean> maintenance(@PathVariable Long scooterId) {
+    public ResponseEntity<Boolean> maintenance(@PathVariable long scooterId) {
         try {
             this.scooterService.setScooterMaintenance(scooterId);
             return ResponseEntity.ok(true);
@@ -57,7 +57,7 @@ public class ScooterController {
     }
 
     @PutMapping("/end-maintenance/{scooterId}")
-    public ResponseEntity<Boolean> endMaintenance(@PathVariable Long scooterId) {
+    public ResponseEntity<Boolean> endMaintenance(@PathVariable long scooterId) {
         try {
             this.scooterService.endScooterMaintenance(scooterId);
             return ResponseEntity.ok(true);

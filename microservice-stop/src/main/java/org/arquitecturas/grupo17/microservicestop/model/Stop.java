@@ -12,7 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class Stop {
     @Id
-    Long id;
+    long id;
     Integer x;
     Integer y;
+
+    public Stop(Integer x, Integer y) {
+        this.x = x;
+        this.y = y;
+    }
 }

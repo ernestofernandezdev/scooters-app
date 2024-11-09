@@ -47,7 +47,7 @@ public class MainController {
     }
 
     @DeleteMapping("/scooter/{scooterId}")
-    public ResponseEntity<String> deleteScooter(@PathVariable Long scooterId) {
+    public ResponseEntity<String> deleteScooter(@PathVariable long scooterId) {
         try{
             this.mainService.deleteScooter(scooterId);
             return  ResponseEntity.ok().body("Scooter removed");
@@ -67,7 +67,7 @@ public class MainController {
     }
 
     @DeleteMapping("/stop/{stopId}")
-    public ResponseEntity<String> deleteStop(@PathVariable Long stopId) {
+    public ResponseEntity<String> deleteStop(@PathVariable long stopId) {
         try{
             this.mainService.deleteStop(stopId);
             return  ResponseEntity.ok().body("Stop removed");
@@ -87,7 +87,7 @@ public class MainController {
     }
 
     @DeleteMapping("/user/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable long userId) {
         try{
             this.mainService.deleteUser(userId);
             return  ResponseEntity.ok().body("User removed");
@@ -106,7 +106,7 @@ public class MainController {
         }
     }
 
-    @PutMapping("/user/{userId}")
+    @PutMapping("/deactivated-user/{userId}")
     public ResponseEntity<String> deactivateUser(@PathVariable long userId) {
         try {
             this.mainService.deactivateUser(userId);
@@ -127,7 +127,7 @@ public class MainController {
     }
 
     @DeleteMapping("/account/{accountId}")
-    public ResponseEntity<String> deleteAccount(@PathVariable Long accountId) {
+    public ResponseEntity<String> deleteAccount(@PathVariable long accountId) {
         try{
             this.mainService.deleteAccount(accountId);
             return  ResponseEntity.ok().body("Account removed");
@@ -146,7 +146,7 @@ public class MainController {
         }
     }
 
-    @PutMapping("/account/{accountId}")
+    @PutMapping("/deactivated-account/{accountId}")
     public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
         try {
             this.mainService.deactivateAccount(accountId);
@@ -155,6 +155,8 @@ public class MainController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    //Trip
 
     @PostMapping("/trip")
     public ResponseEntity<String> createTrip(@RequestBody TripDTO tripDTO){
@@ -167,7 +169,7 @@ public class MainController {
     }
 
     @DeleteMapping("/trip/{tripId}")
-    public ResponseEntity<String> deleteTrip(@PathVariable Long tripId) {
+    public ResponseEntity<String> deleteTrip(@PathVariable long tripId) {
         try{
             this.mainService.deleteTrip(tripId);
             return  ResponseEntity.ok().body("Trip removed");

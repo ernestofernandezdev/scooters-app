@@ -14,7 +14,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAccountUser;
+    private long idAccountUser;
     private String firstname;
     private String lastName;
     private String userName;
