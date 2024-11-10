@@ -23,7 +23,7 @@ public class AccountService {
         this.accountRepository.save(account);
     }
 
-    public AccountDTO findById(Long id) {
+    public AccountDTO findById(long id) {
         return this.accountMapper.toDTO(accountRepository.findById(id).orElseThrow());
     }
 
@@ -33,13 +33,13 @@ public class AccountService {
                 .toList();
     }
 
-    public void update(AccountDTO accountDTO, Long id) {
+    public void update(AccountDTO accountDTO, long id) {
         Account account = this.accountRepository.findById(id).orElseThrow();
         this.accountMapper.updateEntityFromDTO(accountDTO, account);
         this.accountRepository.save(account);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         this.accountRepository.deleteById(id);
     }
 }

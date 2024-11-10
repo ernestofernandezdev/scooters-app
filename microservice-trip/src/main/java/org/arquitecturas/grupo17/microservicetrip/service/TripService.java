@@ -24,7 +24,7 @@ public class TripService {
         tripRepository.save(trip);
     }
 
-    public TripDTO findById(Long id) {
+    public TripDTO findById(long id) {
         Trip trip = tripRepository.findById(id).orElseThrow();
         return this.tripMapper.toDTO(trip);
     }
@@ -35,13 +35,13 @@ public class TripService {
                 .toList();
     }
 
-    public void update(TripDTO tripDTO, Long id) {
+    public void update(TripDTO tripDTO, long id) {
         Trip trip = this.tripRepository.findById(id).orElseThrow();
         this.tripMapper.updateEntityFromDTO(tripDTO, trip);
         tripRepository.save(trip);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         tripRepository.deleteById(id);
     }
 

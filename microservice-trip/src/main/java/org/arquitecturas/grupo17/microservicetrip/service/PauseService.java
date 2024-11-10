@@ -23,7 +23,7 @@ public class PauseService {
         pauseRepository.save(pause);
     }
 
-    public PauseDTO findById(Long id) {
+    public PauseDTO findById(long id) {
         Pause pause = pauseRepository.findById(id).orElseThrow();
         return this.pauseMapper.toDTO(pause);
     }
@@ -34,13 +34,13 @@ public class PauseService {
                 .toList();
     }
 
-    public void update(PauseDTO pauseDTO, Long id) {
+    public void update(PauseDTO pauseDTO, long id) {
         Pause pause = this.pauseRepository.findById(id).orElseThrow();
         this.pauseMapper.updateEntityFromDTO(pauseDTO, pause);
         pauseRepository.save(pause);
     }
 
-    public void delete(Long id) {
+    public void delete(long id) {
         pauseRepository.deleteById(id);
     }
 

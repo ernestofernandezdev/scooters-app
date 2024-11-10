@@ -25,4 +25,12 @@ public class PriceService {
         Price price = this.priceRepository.findActualPrice(Timestamp.valueOf(LocalDateTime.now()));
         return price.getPrice();
     }
+
+    public void updatePenaltyPrice(long idPrice, int newPenaltyPrice) {
+        Price price = priceRepository.findById(idPrice)
+                .orElseThrow(() -> new RuntimeException("Price not found with id " + idPrice));
+
+        price.setPenaltyPrice(newPenaltyPrice);
+        priceRepository.save(price);
+    }
 }

@@ -19,7 +19,7 @@ public class Scooter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private Integer state;
     private Integer x;
     private Integer y;

@@ -20,5 +20,8 @@ public interface ScooterFeignClient {
     @PostMapping("/api/scooter")
     ResponseEntity<String> createScooter(@RequestBody ScooterDTO scooterDTO);
 
+    @DeleteMapping("/api/scooter/{id}")
+    ResponseEntity<String> deleteScooter(@PathVariable long id);
+
 
 }

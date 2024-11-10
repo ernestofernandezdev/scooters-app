@@ -22,7 +22,7 @@ public class StopController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StopDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<StopDTO> findById(@PathVariable("id") long id) {
         StopDTO accountDto = this.stopService.findById(id);
         return ResponseEntity.ok(accountDto);
     }
@@ -34,13 +34,13 @@ public class StopController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody StopDTO stopDTO) {
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody StopDTO stopDTO) {
         stopService.update(stopDTO, id);
         return ResponseEntity.ok("Stop updated");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable long id) {
         stopService.delete(id);
         return ResponseEntity.ok("Stop deleted");
     }

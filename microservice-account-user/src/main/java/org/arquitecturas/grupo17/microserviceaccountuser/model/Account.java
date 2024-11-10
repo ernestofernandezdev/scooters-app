@@ -16,7 +16,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAccount;
+    private long idAccount;
     private double availableMoney;
     private boolean disabled;
     private Timestamp registrationDate;
