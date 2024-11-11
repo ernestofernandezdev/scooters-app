@@ -34,6 +34,6 @@ public interface AccountUserFeignClient {
     @PutMapping("/api/user/account/{id}")
     ResponseEntity<String> updateAccount(@PathVariable long id);
 
-    @PutMapping("/api/user/deactivated-account/{id}")
+    @PutMapping("/api/account/deactivate-account/{id}")
     ResponseEntity<String> deactivateAccount(@PathVariable long id);
 }

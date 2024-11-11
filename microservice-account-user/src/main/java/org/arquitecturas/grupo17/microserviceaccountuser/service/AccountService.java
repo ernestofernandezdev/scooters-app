@@ -42,4 +42,10 @@ public class AccountService {
     public void delete(long id) {
         this.accountRepository.deleteById(id);
     }
+
+    public void deactivate(long id) throws Exception {
+        Account account = this.accountRepository.findById(id).orElseThrow();
+        account.setDisabled(true);
+        this.accountRepository.save(account);
+    }
 }

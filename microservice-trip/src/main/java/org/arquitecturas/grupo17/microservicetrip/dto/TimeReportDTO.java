@@ -18,4 +18,8 @@ public class TimeReportDTO {
         this.time += time;
     }
 
+    public void subtractTime(Long time) {
+        this.time -= time;
+    }
+
 }

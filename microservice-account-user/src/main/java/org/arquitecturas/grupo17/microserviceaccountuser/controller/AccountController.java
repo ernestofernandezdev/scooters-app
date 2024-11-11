@@ -45,4 +45,14 @@ public class AccountController {
         accountService.delete(id);
         return ResponseEntity.ok("Account deleted");
     }
+
+    @PutMapping("/deactivate-account/{accountId")
+    public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
+        try {
+            this.accountService.deactivate(accountId);
+            return ResponseEntity.ok("Account deactivated");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Operation failed");
+        }
+    }
 }
