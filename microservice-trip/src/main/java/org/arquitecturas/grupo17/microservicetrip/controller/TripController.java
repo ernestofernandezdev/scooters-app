@@ -2,6 +2,7 @@ package org.arquitecturas.grupo17.microservicetrip.controller;
 
 import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TimeReportDTO;
+import org.arquitecturas.grupo17.microservicetrip.dto.ScooterTripsDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.service.TripService;
 import org.springframework.http.ResponseEntity;
@@ -63,5 +64,18 @@ public class TripController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @GetMapping("/scootersWithTrips")
+    public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(
+            @RequestParam int year, @RequestParam long minTrips) {
+        List<ScooterTripsDTO> scooters = tripService.getScootersWithMoreThanXTripsInYear(year, minTrips);
+        return ResponseEntity.ok(scooters);
+    }
+
+    @GetMapping("/totalBilled")
+    public ResponseEntity<Integer> getTotalBilled(@RequestParam int year, @RequestParam int startMonth, @RequestParam int endMonth) {
+        int total = tripService.calculateTotalBilled(year, startMonth, endMonth);
+        return ResponseEntity.ok(total);
     }
 }
