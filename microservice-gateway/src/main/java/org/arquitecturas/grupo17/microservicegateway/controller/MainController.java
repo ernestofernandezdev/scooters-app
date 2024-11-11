@@ -57,6 +57,15 @@ public class MainController {
         }
     }
 
+    @GetMapping("/time-report")
+    public ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops) {
+        try {
+            return ResponseEntity.ok(this.mainService.getTimeReport(stops));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
     @DeleteMapping("/scooter/{scooterId}")
     public ResponseEntity<String> deleteScooter(@PathVariable long scooterId) {
         try{
@@ -157,7 +166,7 @@ public class MainController {
         }
     }
 
-    @PutMapping("/deactivated-account/{accountId}")
+    @PutMapping("/deactivate-account/{accountId}")
     public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
         try {
             this.mainService.deactivateAccount(accountId);

@@ -2,6 +2,7 @@ package org.arquitecturas.grupo17.microservicegateway.client;
 
 import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.PriceDTO;
+import org.arquitecturas.grupo17.microservicegateway.dto.TimeReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.TripDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,10 @@ public interface TripFeignClient {
 
     @GetMapping("/api/trip/distance-report")
     ResponseEntity<List<DistanceReportDTO>> getDistanceReport();
+
+    @GetMapping("/api/trip/time-report")
+    ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops);
+
     @PostMapping("/api/price")
     ResponseEntity<String> createPrice(@RequestBody PriceDTO priceDTO);
 

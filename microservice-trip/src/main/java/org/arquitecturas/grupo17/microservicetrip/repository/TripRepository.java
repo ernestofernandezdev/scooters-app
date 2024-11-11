@@ -1,6 +1,7 @@
 package org.arquitecturas.grupo17.microservicetrip.repository;
 
 import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
+import org.arquitecturas.grupo17.microservicetrip.dto.TimeReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.model.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,10 +25,11 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     @Query("""
             select
                 t.scooterId,
-                sum(t.end - t.start)
+                t.start,
+                t.end
             from Trip t
             where t.end is not null
-            group by t.scooterId
+            order by t.scooterId
 """)
-    List<Object[]> getTimeWithoutStopsReport();
+    List<Object[]> getTimeWithStopsReport();
 }

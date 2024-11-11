@@ -1,6 +1,7 @@
 package org.arquitecturas.grupo17.microservicetrip.controller;
 
 import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
+import org.arquitecturas.grupo17.microservicetrip.dto.TimeReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.service.TripService;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,15 @@ public class TripController {
     public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
         try {
             return ResponseEntity.ok(this.tripService.getDistanceReport());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/time-report")
+    public ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops) {
+        try {
+            return ResponseEntity.ok(this.tripService.getTimeReport(stops));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }

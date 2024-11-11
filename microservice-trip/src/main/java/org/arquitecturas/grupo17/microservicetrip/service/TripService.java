@@ -1,12 +1,15 @@
 package org.arquitecturas.grupo17.microservicetrip.service;
 
 import org.arquitecturas.grupo17.microservicetrip.dto.DistanceReportDTO;
+import org.arquitecturas.grupo17.microservicetrip.dto.TimeReportDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.model.Trip;
 import org.arquitecturas.grupo17.microservicetrip.repository.TripRepository;
 import org.arquitecturas.grupo17.microservicetrip.utils.TripMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +50,33 @@ public class TripService {
 
     public List<DistanceReportDTO> getDistanceReport() {
         return this.tripRepository.getDistanceReport();
+    }
+
+    public List<TimeReportDTO> getTimeReport(boolean stops) {
+        if (stops) {
+            List<Object[]> rows = this.tripRepository.getTimeWithStopsReport();
+            System.out.println(rows.size());
+            List<TimeReportDTO> reports = new ArrayList<>();
+            long scooterId = (long) rows.getFirst()[0];
+            TimeReportDTO timeReportDTO = new TimeReportDTO(scooterId,0L);
+            for (Object[] row : rows) {
+                long time = (((Timestamp) row[2]).getTime() - ((Timestamp) row[1]).getTime())/60000;
+
+                if ((long) row[0] != scooterId) {
+                    System.out.println(timeReportDTO.getTime());
+                    reports.add(timeReportDTO);
+                    scooterId = (long) row[0];
+                    timeReportDTO = new TimeReportDTO(scooterId,0L);
+                }
+
+                timeReportDTO.addTime(time);
+            }
+            reports.add(timeReportDTO);
+
+            return reports;
+        } else {
+            return null;
+        }
     }
 
 }

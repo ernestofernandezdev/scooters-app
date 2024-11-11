@@ -6,9 +6,9 @@ import org.arquitecturas.grupo17.microservicegateway.client.TripFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.arquitecturas.grupo17.microservicegateway.client.StopFeignClient;
-import org.arquitecturas.grupo17.microservicegateway.client.TripFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.dto.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,14 @@ import java.util.List;
 public class MainService {
     private final ScooterFeignClient scooterClient;
     private final StopFeignClient stopClient;
-    private final AccountUserFeignClient accountUserFeignClient;
-    private final TripFeignClient tripFeignClient;
+    private final AccountUserFeignClient accountUserClient;
+    private final TripFeignClient tripClient;
 
-    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient,AccountUserFeignClient accountUserFeignClient, TripFeignClient tripFeignClient) {
+    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient,AccountUserFeignClient accountUserClient, TripFeignClient tripClient) {
         this.scooterClient = scooterClient;
         this.stopClient = stopClient;
-        this.accountUserFeignClient = accountUserFeignClient;
-        this.tripFeignClient = tripFeignClient;
+        this.accountUserClient = accountUserClient;
+        this.tripClient = tripClient;
     }
 
     //Scooter
@@ -48,6 +48,15 @@ public class MainService {
 
     public List<DistanceReportDTO> getDistanceReport() throws Exception {
         return this.tripClient.getDistanceReport().getBody();
+    }
+
+    public List<TimeReportDTO> getTimeReport(boolean stops) throws Exception {
+        ResponseEntity<List<TimeReportDTO>> response = this.tripClient.getTimeReport(stops);
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+            return response.getBody();
+        } else {
+            throw new Exception("BadRequest");
+        }
     }
 
     public void deleteScooter(long scooterId) {
@@ -82,7 +91,7 @@ public class MainService {
 
     public void createUser(UserDTO userDTO) {
         try {
-            this.accountUserFeignClient.createUser(userDTO);
+            this.accountUserClient.createUser(userDTO);
         } catch (Exception e) {
             System.out.println("Error creating user: " + e.getMessage());
 
@@ -91,7 +100,7 @@ public class MainService {
 
     public void deleteUser(long userId) {
         try {
-            this.accountUserFeignClient.deleteUser(userId);
+            this.accountUserClient.deleteUser(userId);
         } catch (Exception e) {
             System.out.println("Error deleting user: " + e.getMessage());
 
@@ -100,7 +109,7 @@ public class MainService {
 
     public void updateUser(long userId) {
         try {
-            this.accountUserFeignClient.updateUser(userId);
+            this.accountUserClient.updateUser(userId);
         } catch (Exception e) {
             System.out.println("Error updating user: " + e.getMessage());
 
@@ -109,7 +118,7 @@ public class MainService {
 
     public void deactivateUser(long userId) {
         try {
-            this.accountUserFeignClient.deactivateUser(userId);
+            this.accountUserClient.deactivateUser(userId);
         } catch (Exception e) {
             System.out.println("Error deactivating user: " + e.getMessage());
 
@@ -118,7 +127,7 @@ public class MainService {
 
     public void createAccount(@RequestBody AccountDTO accountDTO) {
         try {
-            this.accountUserFeignClient.createAccount(accountDTO);
+            this.accountUserClient.createAccount(accountDTO);
         } catch (Exception e) {
             System.out.println("Error creating account: " + e.getMessage());
 
@@ -127,7 +136,7 @@ public class MainService {
 
     public void deleteAccount(@PathVariable long accountId) {
         try {
-            this.accountUserFeignClient.deleteAccount(accountId);
+            this.accountUserClient.deleteAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error deleting account: " + e.getMessage());
 
@@ -136,7 +145,7 @@ public class MainService {
 
     public void updateAccount(@PathVariable long accountId) {
         try {
-            this.accountUserFeignClient.updateAccount(accountId);
+            this.accountUserClient.updateAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error updating account: " + e.getMessage());
 
@@ -145,7 +154,7 @@ public class MainService {
 
     public void deactivateAccount(@PathVariable long accountId) {
         try {
-            this.accountUserFeignClient.deactivateAccount(accountId);
+            this.accountUserClient.deactivateAccount(accountId);
         } catch (Exception e) {
             System.out.println("Error deactivating account: " + e.getMessage());
 
@@ -156,7 +165,7 @@ public class MainService {
 
     public void createTrip(TripDTO tripDTO) {
         try {
-            this.tripFeignClient.createTrip(tripDTO);
+            this.tripClient.createTrip(tripDTO);
         } catch (Exception e) {
             System.out.println("Error creating trip: " + e.getMessage());
 
@@ -165,7 +174,7 @@ public class MainService {
 
     public void deleteTrip(long tripId) {
         try {
-            this.tripFeignClient.deleteTrip(tripId);
+            this.tripClient.deleteTrip(tripId);
         } catch (Exception e) {
             System.out.println("Error deleting trip with ID: " + tripId);
 
@@ -174,7 +183,7 @@ public class MainService {
 
     public void createPrice(PriceDTO priceDTO) {
         try {
-            this.tripFeignClient.createPrice(priceDTO);
+            this.tripClient.createPrice(priceDTO);
         } catch (Exception e) {
             System.out.println("Error creating price: " + e.getMessage());
 
@@ -182,7 +191,7 @@ public class MainService {
     }
     public void updatePenaltyPrice(long priceId, int newPenaltyPrice){
         try {
-            this.tripFeignClient.updatePenaltyPrice(priceId, newPenaltyPrice);
+            this.tripClient.updatePenaltyPrice(priceId, newPenaltyPrice);
         } catch (Exception e) {
             System.out.println("Error updating price: " + e.getMessage());
 
