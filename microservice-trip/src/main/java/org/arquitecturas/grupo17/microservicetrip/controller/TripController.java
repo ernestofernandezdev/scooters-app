@@ -1,5 +1,6 @@
 package org.arquitecturas.grupo17.microservicetrip.controller;
 
+import org.arquitecturas.grupo17.microservicetrip.dto.ScooterTripsDTO;
 import org.arquitecturas.grupo17.microservicetrip.dto.TripDTO;
 import org.arquitecturas.grupo17.microservicetrip.service.TripService;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +44,18 @@ public class TripController {
     public ResponseEntity<String> delete(@PathVariable long id) {
         tripService.delete(id);
         return ResponseEntity.ok("Trip deleted");
+    }
+
+    @GetMapping("/scootersWithTrips")
+    public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(
+            @RequestParam int year, @RequestParam long minTrips) {
+        List<ScooterTripsDTO> scooters = tripService.getScootersWithMoreThanXTripsInYear(year, minTrips);
+        return ResponseEntity.ok(scooters);
+    }
+
+    @GetMapping("/totalBilled")
+    public ResponseEntity<Integer> getTotalBilled(@RequestParam int year, @RequestParam int startMonth, @RequestParam int endMonth) {
+        int total = tripService.calculateTotalBilled(year, startMonth, endMonth);
+        return ResponseEntity.ok(total);
     }
 }

@@ -12,4 +12,6 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
 
     @Query("select p from Price p where p.since < ?1 order by p.since desc limit 1")
     Price findActualPrice(Timestamp since);
+
+    Price findBySinceBefore(Timestamp since);
 }
