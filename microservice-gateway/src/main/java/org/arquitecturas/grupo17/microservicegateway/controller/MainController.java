@@ -208,7 +208,7 @@ public class MainController {
         }
     }
 
-    @PutMapping("/api/price/{id}")
+    @PutMapping("/price/{id}")
     public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice){
         try {
             this.mainService.updatePenaltyPrice(id, newPenaltyPrice);
@@ -218,19 +218,20 @@ public class MainController {
         }
     }
 
-    @GetMapping("/api/trip/scootersWithTrips")
+    @GetMapping("/trip/scootersWithTrips")
     public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(@RequestParam int year, @RequestParam long minTrips) {
         try {
             List<ScooterTripsDTO> scooters = this.mainService.getScootersWithMoreThanXTripsInYear(year, minTrips);
 
             return ResponseEntity.ok().body(scooters);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }
 
 
-    @GetMapping("/api/trip/totalBilled")
+    @GetMapping("/trip/totalBilled")
     public ResponseEntity<Integer> getTotalBilled(@RequestParam int year,
                                                   @RequestParam int startMonth,
                                                   @RequestParam int endMonth) {
@@ -238,6 +239,25 @@ public class MainController {
             int total = this.mainService.getTotalBilled(year, startMonth, endMonth);
             return ResponseEntity.ok().body(total);
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/scooter/states")
+    public ResponseEntity<List<ScooterStateDTO>> getScootersByState() {
+        try {
+            return ResponseEntity.ok().body(this.mainService.getScootersByState());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/scooter/close")
+    public ResponseEntity<List<ScooterDTO>> getCloseScooters(@RequestParam long userId, int distance) {
+        try {
+            return ResponseEntity.ok().body(this.mainService.getCloseScooters(userId, distance));
+        } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }

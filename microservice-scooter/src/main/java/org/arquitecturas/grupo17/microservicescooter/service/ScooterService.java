@@ -1,6 +1,8 @@
 package org.arquitecturas.grupo17.microservicescooter.service;
 
 import org.arquitecturas.grupo17.microservicescooter.dto.ScooterDTO;
+import org.arquitecturas.grupo17.microservicescooter.dto.ScooterStateDTO;
+import org.arquitecturas.grupo17.microservicescooter.dto.UserDTO;
 import org.arquitecturas.grupo17.microservicescooter.model.Scooter;
 import org.arquitecturas.grupo17.microservicescooter.repository.ScooterRepository;
 import org.arquitecturas.grupo17.microservicescooter.utils.ScooterMapper;
@@ -63,6 +65,14 @@ public class ScooterService{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<ScooterStateDTO> getScootersByState() {
+        return this.scooterRepository.findPerState();
+    }
+
+    public List<ScooterDTO> getCloseScooters(int x, int y, int distance) {
+        return this.scooterRepository.findCloseScooters(distance, x, y);
     }
 
 }

@@ -37,7 +37,7 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
 """)
     List<Object[]> getTimeWithStopsReport();
 
-    @Query("SELECT t.scooterId, COUNT(t) FROM Trip t WHERE YEAR(t.start) = ?1 GROUP BY t.scooterId HAVING COUNT(t) > ?2")
+    @Query("SELECT t.scooterId, COUNT(t) FROM Trip t WHERE YEAR(t.start) = ?1 GROUP BY t.scooterId HAVING COUNT(t) >= ?2")
     List<Object[]> findScootersWithMoreThanXTripsInYear(int year, long minTrips);
 
     List<Trip> findByStartBetween(Timestamp start, Timestamp end);

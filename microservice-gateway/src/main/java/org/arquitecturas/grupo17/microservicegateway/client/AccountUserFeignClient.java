@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 public interface AccountUserFeignClient {
 
     //User
+    @GetMapping("/api/user/{id}")
+    ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id);
 
     @PostMapping("/api/user")
     ResponseEntity<String> createUser(@RequestBody UserDTO userDTO);

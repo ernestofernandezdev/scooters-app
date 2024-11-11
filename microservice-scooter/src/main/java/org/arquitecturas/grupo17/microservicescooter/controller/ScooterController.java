@@ -1,6 +1,8 @@
 package org.arquitecturas.grupo17.microservicescooter.controller;
 
 import org.arquitecturas.grupo17.microservicescooter.dto.ScooterDTO;
+import org.arquitecturas.grupo17.microservicescooter.dto.ScooterStateDTO;
+import org.arquitecturas.grupo17.microservicescooter.dto.UserDTO;
 import org.arquitecturas.grupo17.microservicescooter.service.ScooterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +65,24 @@ public class ScooterController {
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(false);
+        }
+    }
+
+    @GetMapping("/states")
+    public ResponseEntity<List<ScooterStateDTO>> findAllStates() {
+        try {
+            return ResponseEntity.ok(this.scooterService.getScootersByState());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/close")
+    public ResponseEntity<List<ScooterDTO>> getCloseScooters(@RequestParam int x, @RequestParam int y, @RequestParam int distance) {
+        try {
+            return ResponseEntity.ok(this.scooterService.getCloseScooters(x, y, distance));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

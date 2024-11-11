@@ -1,10 +1,6 @@
 package org.arquitecturas.grupo17.microservicegateway.client;
 
-import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
-import org.arquitecturas.grupo17.microservicegateway.dto.PriceDTO;
-import org.arquitecturas.grupo17.microservicegateway.dto.TimeReportDTO;
-import org.arquitecturas.grupo17.microservicegateway.dto.ScooterTripsDTO;
-import org.arquitecturas.grupo17.microservicegateway.dto.TripDTO;
+import org.arquitecturas.grupo17.microservicegateway.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,5 +34,6 @@ public interface TripFeignClient {
     ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(@RequestParam int year, @RequestParam long minTrips);
 
     @GetMapping("/api/trip/totalBilled")
-    ResponseEntity<Integer> getTotalBilled(@RequestBody int year, @RequestBody int startMonth, @RequestBody int endMonth);
+    ResponseEntity<Integer> getTotalBilled(@RequestParam int year, @RequestParam int startMonth, @RequestParam int endMonth);
+
 }

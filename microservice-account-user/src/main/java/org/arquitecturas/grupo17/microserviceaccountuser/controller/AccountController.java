@@ -46,7 +46,7 @@ public class AccountController {
         return ResponseEntity.ok("Account deleted");
     }
 
-    @PutMapping("/deactivate-account/{accountId")
+    @PutMapping("/deactivate-account/{accountId}")
     public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
         try {
             this.accountService.deactivate(accountId);

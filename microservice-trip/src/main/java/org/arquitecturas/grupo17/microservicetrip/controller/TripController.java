@@ -75,7 +75,12 @@ public class TripController {
 
     @GetMapping("/totalBilled")
     public ResponseEntity<Integer> getTotalBilled(@RequestParam int year, @RequestParam int startMonth, @RequestParam int endMonth) {
-        int total = tripService.calculateTotalBilled(year, startMonth, endMonth);
-        return ResponseEntity.ok(total);
+        try {
+            int total = tripService.calculateTotalBilled(year, startMonth, endMonth);
+            return ResponseEntity.ok(total);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

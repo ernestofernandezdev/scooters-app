@@ -201,7 +201,7 @@ public class MainService {
 
     public List<ScooterTripsDTO> getScootersWithMoreThanXTripsInYear(int year, long minTrips) {
         try {
-            ResponseEntity<List<ScooterTripsDTO>> response = this.tripFeignClient.getScootersWithMoreThanXTripsInYear(year, minTrips);
+            ResponseEntity<List<ScooterTripsDTO>> response = this.tripClient.getScootersWithMoreThanXTripsInYear(year, minTrips);
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 return response.getBody();
@@ -215,7 +215,7 @@ public class MainService {
 
     public int getTotalBilled(int year, int startMonth, int endMonth) {
         try {
-            ResponseEntity<Integer> response = this.tripFeignClient.getTotalBilled(year, startMonth, endMonth);
+            ResponseEntity<Integer> response = this.tripClient.getTotalBilled(year, startMonth, endMonth);
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 return response.getBody();
@@ -224,6 +224,27 @@ public class MainService {
             }
         } catch (Exception e) {
             throw new RuntimeException("Error getting total billed: " + e.getMessage());
+        }
+    }
+
+    public List<ScooterStateDTO> getScootersByState() {
+        return this.scooterClient.getScooterStates().getBody();
+    }
+
+    public List<ScooterDTO> getCloseScooters(long userId, int distance) throws Exception {
+        UserDTO userDTO;
+        ResponseEntity<UserDTO> userResponse = this.accountUserClient.getUser(userId);
+        if (userResponse.getStatusCode().is2xxSuccessful()) {
+            userDTO = userResponse.getBody();
+        } else {
+            throw new Exception("error");
+        }
+
+        ResponseEntity<List<ScooterDTO>> scootersResponse = this.scooterClient.getCloseScooters(userDTO.getX(), userDTO.getY(), distance);
+        if (scootersResponse.getStatusCode().is2xxSuccessful()) {
+            return scootersResponse.getBody();
+        } else {
+            throw new Exception("error");
         }
     }
 
