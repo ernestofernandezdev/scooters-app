@@ -6,8 +6,11 @@ import org.arquitecturas.grupo17.microservicegateway.client.StopFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.client.TripFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.dto.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Service
@@ -172,6 +175,7 @@ public class MainService {
 
         }
     }
+
     public void updatePenaltyPrice(long priceId, int newPenaltyPrice){
         try {
             this.tripFeignClient.updatePenaltyPrice(priceId, newPenaltyPrice);
@@ -180,4 +184,33 @@ public class MainService {
 
         }
     }
+
+    public List<ScooterTripsDTO> getScootersWithMoreThanXTripsInYear(int year, long minTrips) {
+        try {
+            ResponseEntity<List<ScooterTripsDTO>> response = this.tripFeignClient.getScootersWithMoreThanXTripsInYear(year, minTrips);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return response.getBody();
+            } else {
+                throw new RuntimeException("Error getting scooters: " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error getting scooters: " + e.getMessage());
+        }
+    }
+
+    public int getTotalBilled(int year, int startMonth, int endMonth) {
+        try {
+            ResponseEntity<Integer> response = this.tripFeignClient.getTotalBilled(year, startMonth, endMonth);
+
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                return response.getBody();
+            } else {
+                throw new RuntimeException("Error getting total billed: " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error getting total billed: " + e.getMessage());
+        }
+    }
+
 }

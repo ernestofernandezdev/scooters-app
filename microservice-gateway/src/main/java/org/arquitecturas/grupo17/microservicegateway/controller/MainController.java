@@ -192,9 +192,34 @@ public class MainController {
     public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice){
         try {
             this.mainService.updatePenaltyPrice(id, newPenaltyPrice);
-            return ResponseEntity.ok().body("");
+            return ResponseEntity.ok().body("Price Updated");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/api/trip/scootersWithTrips")
+    public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(@RequestParam int year, @RequestParam long minTrips) {
+        try {
+            List<ScooterTripsDTO> scooters = this.mainService.getScootersWithMoreThanXTripsInYear(year, minTrips);
+
+            return ResponseEntity.ok().body(scooters);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+    @GetMapping("/api/trip/totalBilled")
+    public ResponseEntity<Integer> getTotalBilled(@RequestParam int year,
+                                                  @RequestParam int startMonth,
+                                                  @RequestParam int endMonth) {
+        try {
+            int total = this.mainService.getTotalBilled(year, startMonth, endMonth);
+            return ResponseEntity.ok().body(total);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 }
