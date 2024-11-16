@@ -225,7 +225,6 @@ public class MainController {
 
             return ResponseEntity.ok().body(scooters);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -257,7 +256,6 @@ public class MainController {
         try {
             return ResponseEntity.ok().body(this.mainService.getCloseScooters(userId, distance));
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }

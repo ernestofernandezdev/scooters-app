@@ -13,6 +13,9 @@ public interface AccountUserFeignClient {
     @GetMapping("/api/user/{id}")
     ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id);
 
+    @GetMapping("/api/user")
+    ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username);
+
     @PostMapping("/api/user")
     ResponseEntity<String> createUser(@RequestBody UserDTO userDTO);
 

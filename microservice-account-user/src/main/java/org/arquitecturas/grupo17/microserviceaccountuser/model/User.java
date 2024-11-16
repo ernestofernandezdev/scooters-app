@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -18,23 +20,39 @@ public class User {
     private String firstname;
     private String lastName;
     private String userName;
+    private String password;
     private String email;
     private String phoneNumber;
     private Integer x;
     private Integer y;
     @ManyToMany(mappedBy = "users")
     private List<Account> accounts;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Role role;
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    private List<Role> roles;
 
-    public User(String firstname, String lastName, String userName, String email, String phoneNumber, Integer x, Integer y, String role) {
+    public User(String firstname, String lastName, String userName, String password, String email, String phoneNumber, Integer x, Integer y) {
         this.firstname = firstname;
         this.lastName = lastName;
         this.userName = userName;
+        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.x = x;
         this.y = y;
-        this.role = new Role(role);
+        this.roles = new ArrayList<>();
+    }
+
+    public void addRole(Role role) {
+        if (!roles.contains(role) && (
+                Objects.equals(role.getName(), Role._USER)
+                || Objects.equals(role.getName(), Role._ADMIN)
+                || Objects.equals(role.getName(), Role._MAINTENANCE)
+                )) {
+            roles.add(role);
+        }
+    }
+
+    public boolean hasRole(String roleName) {
+        return roles.stream().anyMatch(role -> role.getName().equals(roleName));
     }
 }

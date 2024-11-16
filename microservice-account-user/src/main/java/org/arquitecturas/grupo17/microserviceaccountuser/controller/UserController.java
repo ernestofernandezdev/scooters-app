@@ -17,8 +17,9 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<UserDTO>> findAll() {
-        return ResponseEntity.ok(this.userService.findAll());
+    public ResponseEntity<UserDTO> findByUsername(@RequestParam String username) {
+        System.out.println("Se está buscando el usuario...");
+        return ResponseEntity.ok(this.userService.findByUsername(username));
     }
 
     @GetMapping("/{id}")

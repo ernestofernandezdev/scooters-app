@@ -9,6 +9,7 @@ import org.arquitecturas.grupo17.microservicegateway.client.StopFeignClient;
 import org.arquitecturas.grupo17.microservicegateway.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,14 @@ public class MainService {
     private final StopFeignClient stopClient;
     private final AccountUserFeignClient accountUserClient;
     private final TripFeignClient tripClient;
+    private final PasswordEncoder passwordEncoder;
 
-    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient,AccountUserFeignClient accountUserClient, TripFeignClient tripClient) {
+    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient,AccountUserFeignClient accountUserClient, TripFeignClient tripClient, PasswordEncoder passwordEncoder) {
         this.scooterClient = scooterClient;
         this.stopClient = stopClient;
         this.accountUserClient = accountUserClient;
         this.tripClient = tripClient;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //Scooter
@@ -91,6 +94,7 @@ public class MainService {
 
     public void createUser(UserDTO userDTO) {
         try {
+            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             this.accountUserClient.createUser(userDTO);
         } catch (Exception e) {
             System.out.println("Error creating user: " + e.getMessage());

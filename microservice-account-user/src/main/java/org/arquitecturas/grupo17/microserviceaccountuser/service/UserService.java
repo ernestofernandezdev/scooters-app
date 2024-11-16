@@ -4,6 +4,7 @@ import org.arquitecturas.grupo17.microserviceaccountuser.dto.UserDTO;
 import org.arquitecturas.grupo17.microserviceaccountuser.model.User;
 import org.arquitecturas.grupo17.microserviceaccountuser.repository.UserRepository;
 import org.arquitecturas.grupo17.microserviceaccountuser.utils.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper = new UserMapper();
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public void create(UserDTO userDTO) {
@@ -42,4 +44,10 @@ public class UserService {
     public void delete(long id) {
         this.userRepository.deleteById(id);
     }
+
+    public UserDTO findByUsername(String username) {
+        System.out.println("En el service");
+        return userMapper.toDTO(this.userRepository.findByUsernameWithRoles(username).orElseThrow());
+    }
+
 }

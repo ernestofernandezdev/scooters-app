@@ -4,23 +4,34 @@ import lombok.NoArgsConstructor;
 import org.arquitecturas.grupo17.microserviceaccountuser.dto.UserDTO;
 import org.arquitecturas.grupo17.microserviceaccountuser.model.Role;
 import org.arquitecturas.grupo17.microserviceaccountuser.model.User;
+import org.arquitecturas.grupo17.microserviceaccountuser.repository.RoleRepository;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
+import java.util.ArrayList;
+
+@Component
 public class UserMapper {
 
-    public UserDTO toDTO(User accountUser){
-        if(accountUser == null){
+    private final RoleRepository roleRepository;
+
+    public UserMapper(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    public UserDTO toDTO(User user){
+        if(user == null){
             return null;
         }
         return new UserDTO(
-                accountUser.getFirstname(),
-                accountUser.getLastName(),
-                accountUser.getUserName(),
-                accountUser.getEmail(),
-                accountUser.getPhoneNumber(),
-                accountUser.getX(),
-                accountUser.getY(),
-                accountUser.getRole().getName()
+                user.getFirstname(),
+                user.getLastName(),
+                user.getUserName(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getX(),
+                user.getY(),
+                user.getRoles().stream().map(Role::getName).toList()
         );
     }
 
@@ -28,42 +39,50 @@ public class UserMapper {
         if(userDTO == null){
             return null;
         }
-        return new User(
+        User user = new User(
                 userDTO.getFirstname(),
                 userDTO.getLastName(),
                 userDTO.getUserName(),
+                userDTO.getPassword(),
                 userDTO.getEmail(),
                 userDTO.getPhoneNumber(),
                 userDTO.getX(),
-                userDTO.getY(),
-                userDTO.getRole()
+                userDTO.getY()
         );
+
+        userDTO.getRoles()
+                .forEach(role -> user.addRole(this.roleRepository.findById(role).orElseThrow()));
+
+        return user;
     }
 
-    public void updateEntityFromDTO(UserDTO userDTO, User accountUser) {
+    public void updateEntityFromDTO(UserDTO userDTO, User user) {
         if (userDTO.getFirstname() != null) {
-            accountUser.setFirstname(userDTO.getFirstname());
+            user.setFirstname(userDTO.getFirstname());
         }
         if (userDTO.getLastName() != null) {
-            accountUser.setLastName(userDTO.getLastName());
+            user.setLastName(userDTO.getLastName());
         }
         if (userDTO.getUserName() != null) {
-            accountUser.setUserName(userDTO.getUserName());
+            user.setUserName(userDTO.getUserName());
+        }
+        if (userDTO.getPassword() != null) {
+            user.setPassword(userDTO.getPassword());
         }
         if (userDTO.getEmail() != null) {
-            accountUser.setEmail(userDTO.getEmail());
+            user.setEmail(userDTO.getEmail());
         }
         if (userDTO.getPhoneNumber() != null) {
-            accountUser.setPhoneNumber(userDTO.getPhoneNumber());
+            user.setPhoneNumber(userDTO.getPhoneNumber());
         }
         if (userDTO.getX() != null) {
-            accountUser.setX(userDTO.getX());
+            user.setX(userDTO.getX());
         }
         if (userDTO.getY() != null) {
-            accountUser.setY(userDTO.getY());
+            user.setY(userDTO.getY());
         }
-        if (userDTO.getRole() != null) {
-            accountUser.setRole(new Role(userDTO.getRole()));
-        }
+        user.setRoles(new ArrayList<>());
+        userDTO.getRoles().forEach(role -> user.addRole(new Role(role)));
+
     }
 }

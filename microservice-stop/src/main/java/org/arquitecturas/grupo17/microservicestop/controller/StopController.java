@@ -41,7 +41,11 @@ public class StopController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
-        stopService.delete(id);
-        return ResponseEntity.ok("Stop deleted");
+        try {
+            stopService.delete(id);
+            return ResponseEntity.ok("Stop deleted");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("error");
+        }
     }
 }
