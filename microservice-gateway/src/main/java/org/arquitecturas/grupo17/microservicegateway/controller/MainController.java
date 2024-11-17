@@ -1,5 +1,7 @@
 package org.arquitecturas.grupo17.microservicegateway.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.*;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/scooter-app")
+@Tag(name = "Scooter App Controller", description = "API for managing scooters, users, accounts, trips, and prices.")
 public class MainController {
     private MainService mainService;
 
@@ -19,6 +22,7 @@ public class MainController {
     }
 
     @PutMapping("/maintenance/{scooterId}")
+    @Operation(summary = "Set maintenance", description = "Marks a scooter as under maintenance.")
     public ResponseEntity<String> setMaintenance(@PathVariable long scooterId) {
         try {
             this.mainService.setScooterMaintenance(scooterId);
@@ -29,6 +33,7 @@ public class MainController {
     }
 
     @PutMapping("/end-maintenance/{scooterId}")
+    @Operation(summary = "End maintenance", description = "Marks a scooter as no longer under maintenance.")
     public ResponseEntity<String> endMaintenance(@PathVariable long scooterId) {
         try {
             this.mainService.endScooterMaintenance(scooterId);
@@ -39,6 +44,7 @@ public class MainController {
     }
 
     @PostMapping("/scooter")
+    @Operation(summary = "Add scooter", description = "Adds a new scooter to the database.")
     public ResponseEntity<String> addScooter(@RequestBody ScooterDTO scooterDTO) {
         try {
             this.mainService.addScooter(scooterDTO);
@@ -49,6 +55,7 @@ public class MainController {
     }
 
     @GetMapping("/distance-report")
+    @Operation(summary = "Get distance report", description = "Retrieves a report of distances traveled by scooters.")
     public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
         try {
             return ResponseEntity.ok(this.mainService.getDistanceReport());
@@ -58,6 +65,7 @@ public class MainController {
     }
 
     @GetMapping("/time-report")
+    @Operation(summary = "Get time report", description = "Retrieves a time report, optionally including stops.")
     public ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops) {
         try {
             return ResponseEntity.ok(this.mainService.getTimeReport(stops));
@@ -67,6 +75,7 @@ public class MainController {
     }
 
     @DeleteMapping("/scooter/{scooterId}")
+    @Operation(summary = "Delete scooter", description = "Deletes a scooter by its ID.")
     public ResponseEntity<String> deleteScooter(@PathVariable long scooterId) {
         try{
             this.mainService.deleteScooter(scooterId);
@@ -77,6 +86,7 @@ public class MainController {
     }
 
     @PostMapping("/stop")
+    @Operation(summary = "Add stop", description = "Adds a new stop to the system.")
     public ResponseEntity<String> addStop(@RequestBody StopDTO stopDTO) {
         try {
             this.mainService.addStop(stopDTO);
@@ -87,6 +97,7 @@ public class MainController {
     }
 
     @DeleteMapping("/stop/{stopId}")
+    @Operation(summary = "Delete stop", description = "Deletes a stop by its ID.")
     public ResponseEntity<String> deleteStop(@PathVariable long stopId) {
         try{
             this.mainService.deleteStop(stopId);
@@ -97,6 +108,7 @@ public class MainController {
     }
 
     @PostMapping("/user")
+    @Operation(summary = "Create user", description = "Adds a new user to the system.")
     public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO){
         try {
             this.mainService.createUser(userDTO);
@@ -107,6 +119,7 @@ public class MainController {
     }
 
     @DeleteMapping("/user/{userId}")
+    @Operation(summary = "Delete user", description = "Removes a user by their ID.")
     public ResponseEntity<String> deleteUser(@PathVariable long userId) {
         try{
             this.mainService.deleteUser(userId);
@@ -117,6 +130,7 @@ public class MainController {
     }
 
     @PutMapping("/user/{userId}")
+    @Operation(summary = "Update user", description = "Updates a user's information.")
     public ResponseEntity<String> updateUser(@PathVariable long userId) {
         try {
             this.mainService.updateUser(userId);
@@ -127,6 +141,7 @@ public class MainController {
     }
 
     @PutMapping("/deactivated-user/{userId}")
+    @Operation(summary = "Deactivate user", description = "Deactivates a user.")
     public ResponseEntity<String> deactivateUser(@PathVariable long userId) {
         try {
             this.mainService.deactivateUser(userId);
@@ -137,6 +152,7 @@ public class MainController {
     }
 
     @PostMapping("/account")
+    @Operation(summary = "Create account", description = "Adds a new account to the system.")
     public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO){
         try {
             this.mainService.createAccount(accountDTO);
@@ -147,6 +163,7 @@ public class MainController {
     }
 
     @DeleteMapping("/account/{accountId}")
+    @Operation(summary = "Delete account", description = "Removes an account by its ID.")
     public ResponseEntity<String> deleteAccount(@PathVariable long accountId) {
         try{
             this.mainService.deleteAccount(accountId);
@@ -157,6 +174,7 @@ public class MainController {
     }
 
     @PutMapping("/account/{accountId}")
+    @Operation(summary = "Update account", description = "Updates an account's information.")
     public ResponseEntity<String> updateAccount(@PathVariable long accountId) {
         try {
             this.mainService.updateAccount(accountId);
@@ -167,6 +185,7 @@ public class MainController {
     }
 
     @PutMapping("/deactivate-account/{accountId}")
+    @Operation(summary = "Deactivate account", description = "Deactivates an account.")
     public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
         try {
             this.mainService.deactivateAccount(accountId);
@@ -179,6 +198,7 @@ public class MainController {
     //Trip
 
     @PostMapping("/trip")
+    @Operation(summary = "Create trip", description = "Adds a new trip to the system.")
     public ResponseEntity<String> createTrip(@RequestBody TripDTO tripDTO){
         try {
             this.mainService.createTrip(tripDTO);
@@ -189,6 +209,7 @@ public class MainController {
     }
 
     @DeleteMapping("/trip/{tripId}")
+    @Operation(summary = "Delete trip", description = "Removes a trip by its ID.")
     public ResponseEntity<String> deleteTrip(@PathVariable long tripId) {
         try{
             this.mainService.deleteTrip(tripId);
@@ -199,6 +220,7 @@ public class MainController {
     }
 
     @PostMapping("/price")
+    @Operation(summary = "Create price", description = "Adds a new price entry.")
     public ResponseEntity<String> createPrice(@RequestBody PriceDTO priceDTO){
         try {
             this.mainService.createPrice(priceDTO);
@@ -209,6 +231,7 @@ public class MainController {
     }
 
     @PutMapping("/price/{id}")
+    @Operation(summary = "Update penalty price", description = "Updates a penalty price by ID.")
     public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice){
         try {
             this.mainService.updatePenaltyPrice(id, newPenaltyPrice);
@@ -219,6 +242,7 @@ public class MainController {
     }
 
     @GetMapping("/trip/scootersWithTrips")
+    @Operation(summary = "Get scooters with trips", description = "Retrieves scooters with more than a certain number of trips in a given year.")
     public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(@RequestParam int year, @RequestParam long minTrips) {
         try {
             List<ScooterTripsDTO> scooters = this.mainService.getScootersWithMoreThanXTripsInYear(year, minTrips);
@@ -231,6 +255,7 @@ public class MainController {
 
 
     @GetMapping("/trip/totalBilled")
+    @Operation(summary = "Get total billed", description = "Calculates the total billed amount in a specific time range.")
     public ResponseEntity<Integer> getTotalBilled(@RequestParam int year,
                                                   @RequestParam int startMonth,
                                                   @RequestParam int endMonth) {
@@ -243,6 +268,7 @@ public class MainController {
     }
 
     @GetMapping("/scooter/states")
+    @Operation(summary = "Get scooters by state", description = "Retrieves scooters grouped by their state.")
     public ResponseEntity<List<ScooterStateDTO>> getScootersByState() {
         try {
             return ResponseEntity.ok().body(this.mainService.getScootersByState());
@@ -252,6 +278,7 @@ public class MainController {
     }
 
     @GetMapping("/scooter/close")
+    @Operation(summary = "Get close scooters", description = "Finds scooters near a user within a specific distance.")
     public ResponseEntity<List<ScooterDTO>> getCloseScooters(@RequestParam long userId, int distance) {
         try {
             return ResponseEntity.ok().body(this.mainService.getCloseScooters(userId, distance));
