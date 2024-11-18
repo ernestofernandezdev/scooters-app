@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests( authz -> authz
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/scooter-app/user").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic( Customizer.withDefaults() )

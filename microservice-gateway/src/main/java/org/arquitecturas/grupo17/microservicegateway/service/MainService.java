@@ -23,7 +23,7 @@ public class MainService {
     private final TripFeignClient tripClient;
     private final PasswordEncoder passwordEncoder;
 
-    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient,AccountUserFeignClient accountUserClient, TripFeignClient tripClient, PasswordEncoder passwordEncoder) {
+    public MainService(ScooterFeignClient scooterClient, StopFeignClient stopClient, AccountUserFeignClient accountUserClient, TripFeignClient tripClient, PasswordEncoder passwordEncoder) {
         this.scooterClient = scooterClient;
         this.stopClient = stopClient;
         this.accountUserClient = accountUserClient;
@@ -46,64 +46,54 @@ public class MainService {
     }
 
     public void addScooter(ScooterDTO scooterDTO) throws Exception {
-        this.scooterClient.createScooter(scooterDTO);
-    }
-
-    public void deleteScooter(long scooterId) {
-        try {
-            this.scooterClient.deleteScooter(scooterId);
-        } catch (Exception e) {
-            System.out.println("Error deleting scooter: " + e.getMessage());
+        if (this.scooterClient.createScooter(scooterDTO).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
-    public void addStop(StopDTO stopDTO) {
-        try {
-            this.stopClient.createStop(stopDTO);
-        } catch (Exception e) {
-            System.out.println("Error adding stop: " + e.getMessage());
-
+    public void deleteScooter(long scooterId) throws Exception {
+        if (this.scooterClient.deleteScooter(scooterId).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
-    public void deleteStop(long scooterId) {
-        try {
-            this.scooterClient.deleteScooter(scooterId);
-        } catch (Exception e) {
-            System.out.println("Error deleting stop: " + e.getMessage());
-
+    public void addStop(StopDTO stopDTO) throws Exception {
+        if (this.stopClient.createStop(stopDTO).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
-    public void createPrice(PriceDTO priceDTO) {
-        try {
-            this.tripClient.createPrice(priceDTO);
-        } catch (Exception e) {
-            System.out.println("Error creating price: " + e.getMessage());
-
+    public void deleteStop(long stopId) throws Exception {
+        if (this.stopClient.deleteStop(stopId).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
-    public void updatePenaltyPrice(long priceId, int newPenaltyPrice){
-        try {
-            this.tripClient.updatePenaltyPrice(priceId, newPenaltyPrice);
-        } catch (Exception e) {
-            System.out.println("Error updating price: " + e.getMessage());
-
+    public void createPrice(PriceDTO priceDTO) throws Exception {
+        if (this.tripClient.createPrice(priceDTO).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
-    public void deactivateAccount(@PathVariable long accountId) {
-        try {
-            this.accountUserClient.deactivateAccount(accountId);
-        } catch (Exception e) {
-            System.out.println("Error deactivating account: " + e.getMessage());
+    public void updatePenaltyPrice(long priceId, int newPenaltyPrice) throws Exception {
+        if (this.tripClient.updatePenaltyPrice(priceId, newPenaltyPrice).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
+        }
+    }
 
+    public void deactivateAccount(@PathVariable long accountId) throws Exception {
+        if (this.accountUserClient.deactivateAccount(accountId).getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            throw new Exception("Failed");
         }
     }
 
     public List<DistanceReportDTO> getDistanceReport() throws Exception {
-        return this.tripClient.getDistanceReport().getBody();
+        ResponseEntity<List<DistanceReportDTO>> response = this.tripClient.getDistanceReport();
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+            return response.getBody();
+        } else {
+            throw new Exception("BadRequest");
+        }
     }
 
     public List<TimeReportDTO> getTimeReport(boolean stops) throws Exception {
