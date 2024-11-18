@@ -109,7 +109,7 @@ public class TripService {
                 .collect(Collectors.toList());
     }
 
-    public int calculateTotalBilled(int year, int startMonth, int endMonth) {
+    public long calculateTotalBilled(int year, int startMonth, int endMonth) {
         // Get the start and end date of the range
         LocalDateTime startDate = LocalDateTime.of(year, startMonth, 1, 0, 0);
         LocalDateTime endDate = LocalDateTime.of(year, endMonth, 31, 23, 59);
@@ -122,11 +122,11 @@ public class TripService {
         List<Trip> trips = tripRepository.findByStartBetween(startTimestamp, endTimestamp);
 
         // Calculate total billed
-        int total = 0;
+        long total = 0;
         for (Trip trip : trips) {
             // Get the price associated with the trip
-            Price price = priceRepository.findBySinceBefore(trip.getStart());
-            total += price.getPrice() * trip.getDistance();
+            Price price = priceRepository.findPriceForDate(trip.getStart());
+            total += trip.getPrice(price);
         }
 
         return total;

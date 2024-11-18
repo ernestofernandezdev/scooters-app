@@ -17,7 +17,7 @@ public class Pause {
     private long pauseId;
     private Timestamp start;
     private Timestamp end;
-    @OneToOne
+    @OneToOne(mappedBy = "pause")
     private Trip trip;
 
     public Pause(Timestamp start, Timestamp end) {
@@ -27,5 +27,9 @@ public class Pause {
 
     public Pause() {
         this.start = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public boolean isPenalized() {
+        return (this.getEnd().getTime() - this.getStart().getTime())/(1000*60) >= 15;
     }
 }

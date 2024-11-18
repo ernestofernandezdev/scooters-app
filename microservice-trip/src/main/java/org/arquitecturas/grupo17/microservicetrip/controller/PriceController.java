@@ -15,9 +15,9 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-    @GetMapping("/{scooterId}")
-    public ResponseEntity<Integer> getPrice(@PathVariable int scooterId) {
-        return ResponseEntity.ok(this.priceService.find(scooterId));
+    @GetMapping("/")
+    public ResponseEntity<Integer> getPrice() {
+        return ResponseEntity.ok(this.priceService.find());
     }
 
     @PostMapping("")

@@ -21,8 +21,8 @@ public class PriceService {
         priceRepository.save(price);
     }
 
-    public int find(int scooterId) {
-        Price price = this.priceRepository.findActualPrice(Timestamp.valueOf(LocalDateTime.now()));
+    public int find() {
+        Price price = this.priceRepository.findPriceForDate(Timestamp.valueOf(LocalDateTime.now()));
         return price.getPrice();
     }
 

@@ -1,9 +1,7 @@
 package org.arquitecturas.grupo17.microservicegateway.client;
 
-import org.arquitecturas.grupo17.microservicegateway.dto.DistanceReportDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterDTO;
 import org.arquitecturas.grupo17.microservicegateway.dto.ScooterStateDTO;
-import org.arquitecturas.grupo17.microservicegateway.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -18,6 +18,7 @@ public class MainController {
         this.mainService = exampleService;
     }
 
+    // Registrar monopatín en mantenimiento (debe marcarse como no disponible para su uso)
     @PutMapping("/maintenance/{scooterId}")
     public ResponseEntity<String> setMaintenance(@PathVariable long scooterId) {
         try {
@@ -28,6 +29,7 @@ public class MainController {
         }
     }
 
+    // Registrar fin de mantenimiento de monopatín
     @PutMapping("/end-maintenance/{scooterId}")
     public ResponseEntity<String> endMaintenance(@PathVariable long scooterId) {
         try {
@@ -38,6 +40,7 @@ public class MainController {
         }
     }
 
+    // Agregar monopatín
     @PostMapping("/scooter")
     public ResponseEntity<String> addScooter(@RequestBody ScooterDTO scooterDTO) {
         try {
@@ -48,24 +51,7 @@ public class MainController {
         }
     }
 
-    @GetMapping("/distance-report")
-    public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
-        try {
-            return ResponseEntity.ok(this.mainService.getDistanceReport());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-
-    @GetMapping("/time-report")
-    public ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops) {
-        try {
-            return ResponseEntity.ok(this.mainService.getTimeReport(stops));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-
+    // Quitar monopatín
     @DeleteMapping("/scooter/{scooterId}")
     public ResponseEntity<String> deleteScooter(@PathVariable long scooterId) {
         try{
@@ -76,6 +62,7 @@ public class MainController {
         }
     }
 
+    // Registrar parada
     @PostMapping("/stop")
     public ResponseEntity<String> addStop(@RequestBody StopDTO stopDTO) {
         try {
@@ -86,6 +73,7 @@ public class MainController {
         }
     }
 
+    // Quitar parada
     @DeleteMapping("/stop/{stopId}")
     public ResponseEntity<String> deleteStop(@PathVariable long stopId) {
         try{
@@ -96,108 +84,7 @@ public class MainController {
         }
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO){
-        try {
-            this.mainService.createUser(userDTO);
-            return ResponseEntity.ok().body("User added");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable long userId) {
-        try{
-            this.mainService.deleteUser(userId);
-            return  ResponseEntity.ok().body("User removed");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PutMapping("/user/{userId}")
-    public ResponseEntity<String> updateUser(@PathVariable long userId) {
-        try {
-            this.mainService.updateUser(userId);
-            return ResponseEntity.ok().body("User update");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PutMapping("/deactivated-user/{userId}")
-    public ResponseEntity<String> deactivateUser(@PathVariable long userId) {
-        try {
-            this.mainService.deactivateUser(userId);
-            return ResponseEntity.ok().body("User deactivated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/account")
-    public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO){
-        try {
-            this.mainService.createAccount(accountDTO);
-            return ResponseEntity.ok().body("Account added");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/account/{accountId}")
-    public ResponseEntity<String> deleteAccount(@PathVariable long accountId) {
-        try{
-            this.mainService.deleteAccount(accountId);
-            return  ResponseEntity.ok().body("Account removed");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PutMapping("/account/{accountId}")
-    public ResponseEntity<String> updateAccount(@PathVariable long accountId) {
-        try {
-            this.mainService.updateAccount(accountId);
-            return ResponseEntity.ok().body("Account update");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PutMapping("/deactivate-account/{accountId}")
-    public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
-        try {
-            this.mainService.deactivateAccount(accountId);
-            return ResponseEntity.ok().body("Account deactivated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    //Trip
-
-    @PostMapping("/trip")
-    public ResponseEntity<String> createTrip(@RequestBody TripDTO tripDTO){
-        try {
-            this.mainService.createTrip(tripDTO);
-            return ResponseEntity.ok().body("Trip added");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/trip/{tripId}")
-    public ResponseEntity<String> deleteTrip(@PathVariable long tripId) {
-        try{
-            this.mainService.deleteTrip(tripId);
-            return  ResponseEntity.ok().body("Trip removed");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
+    // Definir precio
     @PostMapping("/price")
     public ResponseEntity<String> createPrice(@RequestBody PriceDTO priceDTO){
         try {
@@ -208,6 +95,7 @@ public class MainController {
         }
     }
 
+    // Definir tarifa extra para reinicio por pausa extensa
     @PutMapping("/price/{id}")
     public ResponseEntity<String> updatePenaltyPrice(@PathVariable long id, @RequestBody int newPenaltyPrice){
         try {
@@ -218,6 +106,44 @@ public class MainController {
         }
     }
 
+    // Anular cuenta
+    @PutMapping("/deactivate-account/{accountId}")
+    public ResponseEntity<String> deactivateAccount(@PathVariable long accountId) {
+        try {
+            this.mainService.deactivateAccount(accountId);
+            return ResponseEntity.ok().body("Account deactivated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Generar reporte de uso de monopatines por kilómetros
+    @GetMapping("/distance-report")
+    public ResponseEntity<List<DistanceReportDTO>> getDistanceReport() {
+        try {
+            return ResponseEntity.ok(this.mainService.getDistanceReport());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    // Generar reporte de uso de monopatines por tiempo con pausas (stops=true)
+    // Generar reporte de uso de monopatines por tiempo sin pausas (stops=false)
+    @GetMapping("/time-report")
+    public ResponseEntity<List<TimeReportDTO>> getTimeReport(@RequestParam boolean stops) {
+        try {
+            return ResponseEntity.ok(this.mainService.getTimeReport(stops));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+    // 3)a) Ya está implementado más arriba
+
+    // 3)b) Ya está implementado más arriba
+
+    // 3)c) Como administrador quiero consultar los monopatines con más de X viajes en un cierto año
     @GetMapping("/trip/scootersWithTrips")
     public ResponseEntity<List<ScooterTripsDTO>> getScootersWithMoreThanXTripsInYear(@RequestParam int year, @RequestParam long minTrips) {
         try {
@@ -229,7 +155,7 @@ public class MainController {
         }
     }
 
-
+    // 3)d) Como administrador quiero consultar el total facturado en un rango de meses de cierto año
     @GetMapping("/trip/totalBilled")
     public ResponseEntity<Integer> getTotalBilled(@RequestParam int year,
                                                   @RequestParam int startMonth,
@@ -242,6 +168,8 @@ public class MainController {
         }
     }
 
+    // 3)e) Como administrador quiero consultar la cantidad de monopatines actualmente en operación,
+    //      versus la cantidad de monopatines actualmente en mantenimiento
     @GetMapping("/scooter/states")
     public ResponseEntity<List<ScooterStateDTO>> getScootersByState() {
         try {
@@ -251,6 +179,10 @@ public class MainController {
         }
     }
 
+    // 3)f) Ya está implementado más arriba
+
+    // 3)g) Como usuario quiero lun listado de los monopatines cercanos a mi zona, para poder encontrar
+    //      un monopatín cerca de mi ubicación
     @GetMapping("/scooter/close")
     public ResponseEntity<List<ScooterDTO>> getCloseScooters(@RequestParam long userId, int distance) {
         try {

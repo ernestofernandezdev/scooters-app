@@ -49,19 +49,6 @@ public class MainService {
         this.scooterClient.createScooter(scooterDTO);
     }
 
-    public List<DistanceReportDTO> getDistanceReport() throws Exception {
-        return this.tripClient.getDistanceReport().getBody();
-    }
-
-    public List<TimeReportDTO> getTimeReport(boolean stops) throws Exception {
-        ResponseEntity<List<TimeReportDTO>> response = this.tripClient.getTimeReport(stops);
-        if (response.getStatusCode().equals(HttpStatus.OK)) {
-            return response.getBody();
-        } else {
-            throw new Exception("BadRequest");
-        }
-    }
-
     public void deleteScooter(long scooterId) {
         try {
             this.scooterClient.deleteScooter(scooterId);
@@ -69,8 +56,6 @@ public class MainService {
             System.out.println("Error deleting scooter: " + e.getMessage());
         }
     }
-
-// Stop
 
     public void addStop(StopDTO stopDTO) {
         try {
@@ -86,101 +71,6 @@ public class MainService {
             this.scooterClient.deleteScooter(scooterId);
         } catch (Exception e) {
             System.out.println("Error deleting stop: " + e.getMessage());
-
-        }
-    }
-
-// AccountUser
-
-    public void createUser(UserDTO userDTO) {
-        try {
-            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            this.accountUserClient.createUser(userDTO);
-        } catch (Exception e) {
-            System.out.println("Error creating user: " + e.getMessage());
-
-        }
-    }
-
-    public void deleteUser(long userId) {
-        try {
-            this.accountUserClient.deleteUser(userId);
-        } catch (Exception e) {
-            System.out.println("Error deleting user: " + e.getMessage());
-
-        }
-    }
-
-    public void updateUser(long userId) {
-        try {
-            this.accountUserClient.updateUser(userId);
-        } catch (Exception e) {
-            System.out.println("Error updating user: " + e.getMessage());
-
-        }
-    }
-
-    public void deactivateUser(long userId) {
-        try {
-            this.accountUserClient.deactivateUser(userId);
-        } catch (Exception e) {
-            System.out.println("Error deactivating user: " + e.getMessage());
-
-        }
-    }
-
-    public void createAccount(@RequestBody AccountDTO accountDTO) {
-        try {
-            this.accountUserClient.createAccount(accountDTO);
-        } catch (Exception e) {
-            System.out.println("Error creating account: " + e.getMessage());
-
-        }
-    }
-
-    public void deleteAccount(@PathVariable long accountId) {
-        try {
-            this.accountUserClient.deleteAccount(accountId);
-        } catch (Exception e) {
-            System.out.println("Error deleting account: " + e.getMessage());
-
-        }
-    }
-
-    public void updateAccount(@PathVariable long accountId) {
-        try {
-            this.accountUserClient.updateAccount(accountId);
-        } catch (Exception e) {
-            System.out.println("Error updating account: " + e.getMessage());
-
-        }
-    }
-
-    public void deactivateAccount(@PathVariable long accountId) {
-        try {
-            this.accountUserClient.deactivateAccount(accountId);
-        } catch (Exception e) {
-            System.out.println("Error deactivating account: " + e.getMessage());
-
-        }
-    }
-
-    //Trip
-
-    public void createTrip(TripDTO tripDTO) {
-        try {
-            this.tripClient.createTrip(tripDTO);
-        } catch (Exception e) {
-            System.out.println("Error creating trip: " + e.getMessage());
-
-        }
-    }
-
-    public void deleteTrip(long tripId) {
-        try {
-            this.tripClient.deleteTrip(tripId);
-        } catch (Exception e) {
-            System.out.println("Error deleting trip with ID: " + tripId);
 
         }
     }
@@ -202,6 +92,29 @@ public class MainService {
 
         }
     }
+
+    public void deactivateAccount(@PathVariable long accountId) {
+        try {
+            this.accountUserClient.deactivateAccount(accountId);
+        } catch (Exception e) {
+            System.out.println("Error deactivating account: " + e.getMessage());
+
+        }
+    }
+
+    public List<DistanceReportDTO> getDistanceReport() throws Exception {
+        return this.tripClient.getDistanceReport().getBody();
+    }
+
+    public List<TimeReportDTO> getTimeReport(boolean stops) throws Exception {
+        ResponseEntity<List<TimeReportDTO>> response = this.tripClient.getTimeReport(stops);
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+            return response.getBody();
+        } else {
+            throw new Exception("BadRequest");
+        }
+    }
+
 
     public List<ScooterTripsDTO> getScootersWithMoreThanXTripsInYear(int year, long minTrips) {
         try {
